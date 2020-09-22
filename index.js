@@ -5,7 +5,7 @@
 // 👇 COMPLETE YOUR WORK BELOW 👇
 */
 
-const { starships } = require('./data/fixtures-bundle');
+// const { starships } = require('./data/fixtures-bundle');
 
 /**
  * ### Challenge `getName`
@@ -127,14 +127,18 @@ function getNthFilm(character, filmNumber) {
  * Sample data expected output: 80124
  */
 function getCargoCapacityTotal(character) {
-  return (
-    character.starships.reduce((total, current) => {
-      return (total += parseInt(current.cargo_capacity));
-    }, 0) +
-    character.vehicles.reduce((total, current) => {
-      return (total += parseInt(current.cargo_capacity));
-    }, 0)
-  );
+  let total = 0;
+  character.vehicles.forEach(current => {
+    if (current.cargo_capacity != null) {
+      total += parseInt(current.cargo_capacity);
+    }
+  });
+  character.starships.forEach(current => {
+    if (current.cargo_capacity != null) {
+      total += parseInt(current.cargo_capacity);
+    }
+  });
+  return total;
 }
 
 /**
