@@ -177,7 +177,20 @@ function getFastestStarshipName(character) {
  * Sample data expected output: `Lambda-class T-4a shuttle`
  */
 function getLargestCargoStarshipModelName(character) {
-  // TODO: Add your code here.
+  let currentLargest = character.starships[0];
+  if (currentLargest === undefined) {
+    return `none`;
+  } else {
+    character.starships.forEach(current => {
+      if (
+        parseInt(current.cargo_capacity) >
+        parseInt(currentLargest.cargo_capacity)
+      ) {
+        currentLargest = current;
+      }
+    });
+  }
+  return currentLargest.model;
 }
 
 /**
@@ -191,7 +204,31 @@ function getLargestCargoStarshipModelName(character) {
  *
  */
 function getSlowestVehicleOrStarshipName(character) {
-  // TODO: Add your code here.
+  let currentSlowest = character.starships[0];
+  if (currentSlowest === undefined) {
+    currentSlowest = character.vehicles[0];
+    if (currentSlowest === undefined) {
+      return `none`;
+    }
+  } else {
+    character.starships.forEach(current => {
+      if (
+        parseInt(current.max_atmosphering_speed) <
+        parseInt(currentSlowest.max_atmosphering_speed)
+      ) {
+        currentSlowest = current;
+      }
+    });
+    character.vehicles.forEach(current => {
+      if (
+        parseInt(current.max_atmosphering_speed) <
+        parseInt(currentSlowest.max_atmosphering_speed)
+      ) {
+        currentSlowest = current;
+      }
+    });
+  }
+  return currentSlowest.name;
 }
 
 /// ////// END OF CHALLENGE /////////
