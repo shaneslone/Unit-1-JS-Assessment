@@ -17,7 +17,6 @@ const { starships } = require('./data/fixtures-bundle');
  * Sample data expected output: `Luke Skywalker`
  */
 function getName(character) {
-  // ⭐️ Example Solution Provided For First Function ⭐️
   return character.name;
 }
 
@@ -31,7 +30,6 @@ function getName(character) {
  * Sample data expected output: 5
  */
 function getFilmCount(character) {
-  // TODO: Add your code inside the functions (others below).
   return character.films.length;
 }
 
@@ -44,7 +42,6 @@ function getFilmCount(character) {
  * If length is 0. Return 'none'
  */
 function getSecondStarshipName(character) {
-  // TODO: Add your code here.
   if (character.starships.length > 1) {
     return character.starships[1].name;
   } else {
@@ -62,7 +59,6 @@ function getSecondStarshipName(character) {
  *    Result: `Luke Skywalker, 172cm, 77kg. Featured in 5 films.`
  */
 function getSummary(character) {
-  // TODO: Add your code here.
   return `${character.name}, ${character.height}cm, ${
     character.mass
   }kg. Featured in ${getFilmCount(character)} films.`;
@@ -77,7 +73,6 @@ function getSummary(character) {
  * Sample data expected output: 8000
  */
 function getVehiclesCostInCreditsSumTotal(character) {
-  // TODO: Add your code here.
   return character.vehicles.reduce((total, current) => {
     return total + current.cost_in_credits;
   }, 0);
@@ -132,7 +127,14 @@ function getNthFilm(character, filmNumber) {
  * Sample data expected output: 80124
  */
 function getCargoCapacityTotal(character) {
-  // TODO: Add your code here.
+  return (
+    character.starships.reduce((total, current) => {
+      return (total += parseInt(current.cargo_capacity));
+    }, 0) +
+    character.vehicles.reduce((total, current) => {
+      return (total += parseInt(current.cargo_capacity));
+    }, 0)
+  );
 }
 
 /**
@@ -147,7 +149,20 @@ function getCargoCapacityTotal(character) {
  * Sample data expected output: `X-wing`
  */
 function getFastestStarshipName(character) {
-  // TODO: Add your code here.
+  let currentFastest = character.starships[0];
+  if (currentFastest === undefined) {
+    return `none`;
+  } else {
+    character.starships.forEach(current => {
+      if (
+        parseInt(current.max_atmosphering_speed) >
+        parseInt(currentFastest.max_atmosphering_speed)
+      ) {
+        currentFastest = current;
+      }
+    });
+  }
+  return currentFastest.name;
 }
 
 /**
